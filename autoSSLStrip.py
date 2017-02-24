@@ -3,6 +3,7 @@
 import commands
 import os
 import sys
+import subprocess
 sys.tracebacklimit = 0
 
 gateway = commands.getoutput('ip route show | grep default | cut -d " " -f 3')
@@ -15,7 +16,32 @@ def parse_args():
 	parser.add_argument('-o', '--output_file', type=str, help="Output file")
 	return parser.parse_args()
 
+def bannertools():
+	print "Checking tools . . ."
+
+def checktools():
+	bannertools()
+	if(len(os.popen("dpkg -l | grep dsniff").read())==0):
+		os.system("sudo apt-get install dsniff")
+	if(len(os.popen("dpkg -l | grep sslstrip").read())==0):
+		os.system("sudo apt-get install sslstrip")
+	print "sslstrip " u'\u2713'
+	print "dsniff   "u'\u2713'
+
+def bannermain():
+	print "																							"
+	print "                        ______ ______ _        ______            _       				"
+	print "               _       / _____) _____|_)      / _____) _        (_)      				"
+	print " _____ _   _ _| |_ ___( (____( (____  _      ( (____ _| |_  ____ _ ____  				"
+	print "(____ | | | (_   _) _ \\____\\____  \| |      \____ (_   _)/ ___) |  _ \ 				"
+	print "/ ___ | |_| | | || |_| |____) )____) ) |_____ _____) )| |_| |   | | |_| |				"
+	print "\_____|____/   \__)___(______(______/|_______|______/  \__)_|   |_|  __/ 				"
+	print "                                                                  |_|   					"
+	print "                                                                  						"
+
 def main():
+	bannermain()
+	checktools()
 	if not os.geteuid() == 0:
     		sys.exit('Error - must be run as root!')
 	args = parse_args()
